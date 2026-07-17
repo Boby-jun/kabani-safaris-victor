@@ -353,6 +353,16 @@
     font-size: 13.5px; font-weight: 300; line-height: 1.8;
     color: #5A5A5A;
   }
+  .lodge-map-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 18px;
+    font-size: 9px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--tan);
+    text-decoration: none; transition: color 0.3s;
+  }
+  .lodge-map-link::after { content: '→'; font-size: 11px; transition: transform 0.3s; }
+  .lodge-map-link:hover { color: var(--tan-light); }
+  .lodge-map-link:hover::after { transform: translateX(3px); }
 
   /* ── EXPERIENCES ─────────────────────────────────────────────────────── */
   #experiences {
@@ -1054,24 +1064,28 @@
         <div class="lodge-region">Kibale · Day 1</div>
         <h3 class="lodge-name">Isunga Lodge</h3>
         <p class="lodge-desc">Tucked at the edge of the forest, surrounded by tea plantations and birdsong.</p>
+        <a class="lodge-map-link" href="https://www.google.com/maps/search/?api=1&query=Isunga+Lodge+Kibale+Uganda" target="_blank" rel="noopener">View on Google Maps</a>
       </div>
 
       <div class="lodge-card fade-up fade-up-delay-1">
         <div class="lodge-region">Queen Elizabeth · Days 2 – 4</div>
         <h3 class="lodge-name">The Bush Lodge</h3>
         <p class="lodge-desc">Comfort, nature and an authentic atmosphere on the edge of the park.</p>
+        <a class="lodge-map-link" href="https://www.google.com/maps/search/?api=1&query=Queen+Elizabeth+Bush+Lodge+Uganda" target="_blank" rel="noopener">View on Google Maps</a>
       </div>
 
       <div class="lodge-card fade-up fade-up-delay-2">
         <div class="lodge-region">Bwindi · Days 5 – 6</div>
         <h3 class="lodge-name">Ride 4 a Woman <span style="font-weight:400; color:#999; font-size:16px;">(Noel's Cottage)</span></h3>
         <p class="lodge-desc">An eco-lodge run by a women's community engaged in local development.</p>
+        <a class="lodge-map-link" href="https://www.google.com/maps/search/?api=1&query=Ride+4+a+Woman+Buhoma+Bwindi+Uganda" target="_blank" rel="noopener">View on Google Maps</a>
       </div>
 
       <div class="lodge-card fade-up fade-up-delay-3">
         <div class="lodge-region">Lake Mburo · Day 7</div>
         <h3 class="lodge-name">Hyena Hill Lodge</h3>
         <p class="lodge-desc">Panoramic views over the park, with a warm, distinctly African atmosphere.</p>
+        <a class="lodge-map-link" href="https://www.google.com/maps/search/?api=1&query=Hyena+Hill+Lodge+Lake+Mburo+Uganda" target="_blank" rel="noopener">View on Google Maps</a>
       </div>
 
     </div>

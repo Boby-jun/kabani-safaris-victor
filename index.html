@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kabani Safaris — Uganda · Victor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ── RESET & BASE ─────────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body { font-family: 'Montserrat', sans-serif; color: #2D2D2D; background: #FAF7F2; overflow-x: hidden; }
+
+  /* ── BRAND COLOURS ───────────────────────────────────────────────────── */
+  :root {
+    --tan:        #A26730;
+    --tan-light:  #C4915A;
+    --tan-pale:   #E8D4BB;
+    --navy:       #2C5064;
+    --navy-dark:  #1A3344;
+    --green:      #4D7338;
+    --green-dark: #354F28;
+    --cream:      #EEE4D4;
+    --cream-dark: #DDD0BA;
+    --dark:       #2D2D2D;
+    --dark-soft:  #3D3D3D;
+    --white:      #FFFFFF;
+    --off-white:  #FAF7F2;
+  }
+
+  /* ── NAVBAR ──────────────────────────────────────────────────────────── */
+  #navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 60px;
+    transition: all 0.4s ease;
+  }
+  #navbar.scrolled {
+    background: rgba(26, 51, 68, 0.97);
+    backdrop-filter: blur(12px);
+    padding: 16px 60px;
+    box-shadow: 0 2px 30px rgba(0,0,0,0.3);
+  }
+  .nav-logo {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+    text-decoration: none;
+  }
+  .nav-logo-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 600; letter-spacing: 3px;
+    color: var(--white); text-transform: uppercase;
+  }
+  .nav-logo-sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px; font-weight: 500; letter-spacing: 5px;
+    color: var(--tan-light); text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 500; letter-spacing: 2.5px;
+    text-transform: uppercase; color: rgba(255,255,255,0.82);
+    text-decoration: none; transition: color 0.3s;
+    position: relative; padding-bottom: 4px;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 100%;
+    height: 1px; background: var(--tan-light); transition: right 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { right: 0; }
+  .nav-cta {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px; font-weight: 600; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--white);
+    border: 1px solid var(--tan-light); padding: 10px 24px;
+    text-decoration: none; transition: all 0.3s;
+  }
+  .nav-cta:hover { background: var(--tan); border-color: var(--tan); }
+
+  /* ── HERO ────────────────────────────────────────────────────────────── */
+  #home {
+    min-height: 100vh; position: relative; display: flex; align-items: center;
+    padding-top: 140px; padding-bottom: 80px;
+    background:
+      linear-gradient(to bottom, rgba(10,20,10,0.50) 0%, rgba(10,15,8,0.15) 40%, rgba(6,10,5,0.85) 100%),
+      url('hero-silverback.jpg') 42% 45% / cover no-repeat;
+    overflow: hidden;
+  }
+  #home::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 10% 90%, rgba(162,103,48,0.16) 0%, transparent 55%),
+      radial-gradient(ellipse at 90% 10%, rgba(77,115,56,0.18) 0%, transparent 55%);
+  }
+  .hero-inner {
+    position: relative; z-index: 2;
+    max-width: 1200px; margin: 0 auto; padding: 0 60px;
+    width: 100%;
+    display: flex; align-items: flex-end; gap: 80px;
+  }
+  .hero-left { flex: 1; min-width: 0; }
+  .hero-right { flex-shrink: 0; width: 320px; }
+  .hero-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px; font-weight: 600; letter-spacing: 5px;
+    text-transform: uppercase; color: var(--tan-light);
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 28px;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 40px; height: 1px; background: var(--tan-light);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 6vw, 88px);
+    font-weight: 500; line-height: 1.05;
+    color: var(--white); margin-bottom: 20px;
+    max-width: 700px;
+  }
+  .hero-title em { font-style: italic; color: var(--tan-light); }
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 300; font-style: italic;
+    color: rgba(255,255,255,0.75); margin-bottom: 0;
+    letter-spacing: 0.5px; max-width: 560px;
+  }
+  .hero-stats {
+    display: flex; flex-direction: column;
+    border: 1px solid rgba(255,255,255,0.18);
+    margin-bottom: 0;
+  }
+  .hero-stat {
+    padding: 9px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    display: flex; justify-content: space-between;
+    align-items: center; gap: 16px;
+    background: rgba(0,0,0,0.18);
+    transition: background 0.3s;
+  }
+  .hero-stat:last-child { border-bottom: none; }
+  .hero-stat:hover { background: rgba(162,103,48,0.15); }
+  .hero-stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; font-weight: 500; color: var(--white); line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 8.5px; font-weight: 500; letter-spacing: 2.5px;
+    text-transform: uppercase; color: rgba(255,255,255,0.5);
+    text-align: right;
+  }
+  .hero-cta-row { display: flex; gap: 20px; align-items: center; margin-top: 28px; }
+  .btn-primary {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px; font-weight: 600; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--white);
+    background: var(--tan); border: none;
+    padding: 18px 40px; cursor: pointer; text-decoration: none;
+    transition: all 0.3s; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--tan-light); transform: translateY(-1px); }
+  .btn-outline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px; font-weight: 500; letter-spacing: 2.5px;
+    text-transform: uppercase; color: rgba(255,255,255,0.75);
+    background: transparent; border: 1px solid rgba(255,255,255,0.3);
+    padding: 18px 40px; cursor: pointer; text-decoration: none;
+    transition: all 0.3s; display: inline-block;
+  }
+  .btn-outline:hover { border-color: rgba(255,255,255,0.7); color: var(--white); }
+
+  .scroll-hint {
+    position: absolute; bottom: 38px; right: 60px; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-size: 9px; font-weight: 500; letter-spacing: 2.5px;
+    text-transform: uppercase; color: rgba(255,255,255,0.4);
+    writing-mode: vertical-rl; text-orientation: mixed;
+  }
+  .scroll-hint::after {
+    content: ''; width: 1px; height: 50px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    animation: scrollPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 0.9; transform: scaleY(0.7); }
+  }
+
+  /* ── SECTION SHARED ──────────────────────────────────────────────────── */
+  .section-wrap { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+  .section-label {
+    font-size: 9px; font-weight: 600; letter-spacing: 5px;
+    text-transform: uppercase; color: var(--tan);
+    display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
+  }
+  .section-label::before { content: ''; width: 28px; height: 1px; background: var(--tan); }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4.5vw, 58px);
+    font-weight: 500; line-height: 1.1; color: var(--dark);
+    margin-bottom: 24px;
+  }
+  .section-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 300; line-height: 1.7;
+    color: #5A4A3A; max-width: 680px; margin-bottom: 72px;
+  }
+
+  /* ── ITINERARY ────────────────────────────────────────────────────────── */
+  #itinerary { padding: 120px 0; background: var(--off-white); position: relative; overflow: hidden; }
+
+  .part-banner {
+    position: relative; margin-bottom: 64px; overflow: hidden;
+    height: 200px; display: flex; align-items: flex-end;
+  }
+  .part-banner-bg { position: absolute; inset: 0; }
+  .part-banner-bg.kibale {
+    background: linear-gradient(to right, rgba(12,20,10,0.82) 0%, rgba(12,20,10,0.30) 100%), url('kibale-forest.jpg') center 40% / cover no-repeat;
+  }
+  .part-banner-bg.queenelizabeth {
+    background: linear-gradient(to right, rgba(20,16,6,0.82) 0%, rgba(20,16,6,0.30) 100%), url('queen-elizabeth-lioness.jpg') 60% 50% / cover no-repeat;
+  }
+  .part-banner-bg.bwindi {
+    background: linear-gradient(to right, rgba(8,14,10,0.82) 0%, rgba(8,14,10,0.30) 100%), url('bwindi-gorilla.jpg') 48% 51% / cover no-repeat;
+  }
+  .part-banner-bg.mburo {
+    background: linear-gradient(to right, rgba(22,18,8,0.82) 0%, rgba(22,18,8,0.30) 100%), url('lake-mburo-giraffe.jpg') 50% 32% / cover no-repeat;
+  }
+  .part-banner-content {
+    position: relative; z-index: 2; padding: 40px 60px; width: 100%;
+  }
+  .part-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px; font-weight: 400; letter-spacing: 5px;
+    text-transform: uppercase; color: rgba(255,255,255,0.55);
+    margin-bottom: 10px;
+  }
+  .part-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; font-weight: 500; color: var(--white);
+    margin-bottom: 8px;
+  }
+  .part-dates {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px; font-weight: 400; letter-spacing: 2px;
+    color: rgba(255,255,255,0.55);
+  }
+
+  /* Day cards grid */
+  .days-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2px; margin-bottom: 80px;
+  }
+  .day-card {
+    background: var(--white); padding: 36px 40px;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease; cursor: default; position: relative;
+    display: flex; flex-direction: column;
+  }
+  .day-card:hover {
+    border-bottom-color: var(--tan);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    z-index: 2;
+  }
+  .day-card-header {
+    display: flex; align-items: flex-start;
+    justify-content: space-between; margin-bottom: 16px;
+  }
+  .day-num-wrap { display: flex; flex-direction: column; gap: 6px; }
+  .day-location-tag {
+    font-size: 8.5px; font-weight: 600; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--tan);
+  }
+  .day-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; font-weight: 400; letter-spacing: 2px;
+    color: rgba(0,0,0,0.3); text-transform: uppercase;
+  }
+  .day-date-badge {
+    font-size: 9px; font-weight: 500; letter-spacing: 1.5px;
+    color: rgba(0,0,0,0.35); text-align: right; margin-top: 4px;
+  }
+  .day-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 500; line-height: 1.25;
+    color: var(--dark); margin-bottom: 14px;
+  }
+  .day-desc {
+    font-size: 13px; font-weight: 300; line-height: 1.75;
+    color: #5A5A5A; margin-bottom: 22px; flex: 1;
+  }
+  .day-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 18px; border-top: 1px solid var(--cream-dark);
+    gap: 12px;
+  }
+  .day-stay {
+    font-size: 11px; font-weight: 400; color: #6A6A6A;
+    flex: 1; min-width: 0;
+  }
+  .day-stay strong {
+    font-weight: 600; color: var(--navy); display: block;
+    font-size: 10px; letter-spacing: 0.5px; margin-bottom: 2px;
+  }
+  .day-meals {
+    font-size: 9px; font-weight: 600; letter-spacing: 1.5px;
+    color: var(--tan); background: var(--cream);
+    padding: 5px 10px; white-space: nowrap; flex-shrink: 0;
+  }
+
+  /* Activity pill inside day card */
+  .activity-tag {
+    display: inline-block;
+    font-size: 8.5px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--green);
+    background: rgba(77,115,56,0.08);
+    border: 1px solid rgba(77,115,56,0.2);
+    padding: 4px 10px; margin-top: 4px; margin-bottom: 12px; margin-right: 6px;
+  }
+
+  /* ── LODGES ──────────────────────────────────────────────────────────── */
+  #lodges { padding: 120px 0; background: var(--cream); position: relative; overflow: hidden; }
+  .lodges-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  }
+  .lodge-card {
+    background: var(--white);
+    border: 1px solid var(--cream-dark);
+    padding: 40px 44px;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.05);
+    position: relative; overflow: hidden;
+  }
+  .lodge-card:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(0,0,0,0.1); }
+  .lodge-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--tan);
+  }
+  .lodge-region {
+    font-size: 9px; font-weight: 600; letter-spacing: 3.5px;
+    text-transform: uppercase; color: var(--tan); margin-bottom: 10px;
+  }
+  .lodge-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px; font-weight: 500; color: var(--dark);
+    margin-bottom: 14px; line-height: 1.2;
+  }
+  .lodge-desc {
+    font-size: 13.5px; font-weight: 300; line-height: 1.8;
+    color: #5A5A5A;
+  }
+
+  /* ── EXPERIENCES ─────────────────────────────────────────────────────── */
+  #experiences {
+    padding: 120px 0;
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, #1E3D30 100%);
+    position: relative; overflow: hidden;
+  }
+  #experiences::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 0% 100%, rgba(162,103,48,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 0%, rgba(77,115,56,0.14) 0%, transparent 50%);
+  }
+  #experiences .section-label { color: var(--tan-light); }
+  #experiences .section-label::before { background: var(--tan-light); }
+  #experiences .section-title { color: var(--white); }
+  #experiences .section-intro { color: rgba(255,255,255,0.65); }
+  .exp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2px;
+  }
+  .exp-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 44px 48px;
+    position: relative; overflow: hidden;
+    transition: all 0.4s ease;
+    display: flex; flex-direction: column;
+  }
+  .exp-subtitle {
+    font-size: 9px; font-weight: 600; letter-spacing: 2.5px;
+    text-transform: uppercase; color: rgba(255,255,255,0.35);
+    margin-bottom: 12px;
+  }
+  .exp-card:hover {
+    background: rgba(255,255,255,0.09);
+    border-color: rgba(162,103,48,0.35);
+    transform: translateY(-4px);
+  }
+  .exp-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--tan);
+  }
+  .exp-card.green::before { background: var(--green); }
+  .exp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 500; color: var(--white);
+    margin-bottom: 16px; line-height: 1.2;
+  }
+  .exp-desc {
+    font-size: 13px; font-weight: 300; line-height: 1.8;
+    color: rgba(255,255,255,0.65);
+  }
+
+  /* ── GUIDE ───────────────────────────────────────────────────────────── */
+  #guides { padding: 120px 0; background: var(--off-white); position: relative; overflow: hidden; }
+  .guides-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .guide-card {
+    background: var(--white);
+    border: 1px solid var(--cream-dark);
+    padding: 52px; position: relative; overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.05);
+  }
+  .guide-card:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(0,0,0,0.1); }
+  .guide-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--tan);
+  }
+  .guide-avatar {
+    width: calc(100% + 104px); height: 280px;
+    margin: -52px -52px 32px -52px;
+    overflow: hidden; display: block;
+  }
+  .guide-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
+  .guide-region {
+    font-size: 9px; font-weight: 600; letter-spacing: 3.5px;
+    text-transform: uppercase; color: var(--tan); margin-bottom: 10px;
+  }
+  .guide-days {
+    font-size: 9px; font-weight: 400; letter-spacing: 2px;
+    color: #999; margin-bottom: 6px;
+  }
+  .guide-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 500; color: var(--dark);
+    margin-bottom: 20px; line-height: 1.15;
+  }
+  .guide-bio {
+    font-size: 13.5px; font-weight: 300; line-height: 1.8;
+    color: #5A5A5A;
+  }
+  .guide-languages {
+    margin-top: 28px; padding-top: 24px;
+    border-top: 1px solid var(--cream-dark);
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  .lang-chip {
+    font-size: 9px; font-weight: 500; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 5px 12px;
+    background: var(--cream); color: #6A6A6A;
+  }
+
+  /* ── PRICING ─────────────────────────────────────────────────────────── */
+  #pricing { padding: 120px 0; background: var(--cream); }
+  .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 64px; }
+
+  .pricing-tbd {
+    text-align: center; padding: 60px 40px;
+    background: var(--white);
+    box-shadow: 0 4px 40px rgba(0,0,0,0.06);
+  }
+  .pricing-tbd-icon { font-size: 40px; margin-bottom: 20px; display: block; }
+  .pricing-tbd-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; font-weight: 500; color: var(--dark);
+    margin-bottom: 16px;
+  }
+  .pricing-tbd-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-weight: 300; line-height: 1.7;
+    color: #7A6A5A; max-width: 520px; margin: 0 auto 32px;
+  }
+  .pricing-tbd-tag {
+    display: inline-block;
+    font-size: 10px; font-weight: 600; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--tan);
+    border: 1px solid var(--tan-pale); padding: 10px 28px;
+  }
+
+  .incl-wrap { display: flex; flex-direction: column; gap: 32px; }
+  .incl-card {
+    background: var(--white); padding: 40px 48px;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.06); flex: 1;
+  }
+  .incl-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 500; margin-bottom: 24px;
+    padding-bottom: 16px; border-bottom: 2px solid;
+  }
+  .incl-card.included .incl-card-title { color: var(--green); border-color: var(--green); }
+  .incl-card.not-included .incl-card-title { color: #B05050; border-color: #D08080; }
+  .incl-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  .incl-list li {
+    font-size: 13px; font-weight: 400; line-height: 1.5;
+    color: var(--dark-soft); display: flex; align-items: flex-start; gap: 12px;
+  }
+  .incl-list li::before { flex-shrink: 0; margin-top: 2px; font-size: 14px; font-weight: 600; }
+  .incl-card.included .incl-list li::before { content: '✓'; color: var(--green); }
+  .incl-card.not-included .incl-list li::before { content: '–'; color: #B05050; }
+
+  .agent-card {
+    background: var(--navy); padding: 40px 48px;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.06);
+  }
+  .agent-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 500; color: var(--white);
+    margin-bottom: 24px; padding-bottom: 16px;
+    border-bottom: 2px solid var(--tan);
+  }
+  .agent-list { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+  .agent-list li {
+    font-size: 13px; font-weight: 300; line-height: 1.6;
+    color: rgba(255,255,255,0.75);
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .agent-list li::before {
+    content: '→'; flex-shrink: 0; color: var(--tan-light);
+    font-size: 14px; margin-top: 1px;
+  }
+
+  /* ── CONTACT ──────────────────────────────────────────────────────────── */
+  #contact {
+    padding: 140px 0 100px;
+    background: linear-gradient(160deg, #0B0F0A 0%, #1A2418 55%, #060504 100%);
+    position: relative; overflow: hidden;
+    text-align: center;
+  }
+  #contact::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 30%, rgba(162,103,48,0.09) 0%, transparent 60%);
+  }
+  .contact-inner { position: relative; z-index: 2; }
+  .contact-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px; font-weight: 600; letter-spacing: 5px;
+    text-transform: uppercase; color: var(--tan-light);
+    margin-bottom: 24px;
+  }
+  .contact-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 400; font-style: italic; color: var(--white);
+    line-height: 1.2; margin-bottom: 12px;
+  }
+  .contact-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 300;
+    color: rgba(255,255,255,0.5); margin-bottom: 64px;
+    letter-spacing: 0.5px;
+  }
+  .contact-cards {
+    display: flex; gap: 24px; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 80px;
+  }
+  .contact-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 36px 48px; min-width: 220px;
+    transition: all 0.3s; text-decoration: none; display: block;
+  }
+  .contact-card:hover {
+    background: rgba(162,103,48,0.12);
+    border-color: rgba(162,103,48,0.4);
+    transform: translateY(-3px);
+  }
+  .contact-card-icon { font-size: 24px; margin-bottom: 14px; display: block; }
+  .contact-card-type {
+    font-size: 9px; font-weight: 600; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--tan-light);
+    display: block; margin-bottom: 8px;
+  }
+  .contact-card-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; color: var(--white); font-weight: 400;
+  }
+  .contact-validity {
+    font-size: 11px; font-weight: 400; line-height: 1.7;
+    color: rgba(255,255,255,0.28); max-width: 560px;
+    margin: 0 auto; padding-top: 48px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-style: italic;
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────────────────────── */
+  footer {
+    background: #060504; padding: 40px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 600; letter-spacing: 3px;
+    color: rgba(255,255,255,0.3); text-transform: uppercase;
+  }
+  .footer-copy {
+    font-size: 10px; font-weight: 400; letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.2);
+  }
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; font-style: italic;
+    color: rgba(255,255,255,0.25); letter-spacing: 0.5px;
+  }
+
+  /* ── ANIMATIONS ──────────────────────────────────────────────────────── */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .fade-up-delay-1 { transition-delay: 0.1s; }
+  .fade-up-delay-2 { transition-delay: 0.2s; }
+  .fade-up-delay-3 { transition-delay: 0.3s; }
+  .fade-up-delay-4 { transition-delay: 0.4s; }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    #navbar, #navbar.scrolled { padding: 18px 28px; }
+    .nav-links { display: none; }
+    .hero-inner, .section-wrap { padding: 0 28px; }
+    .hero-stats { flex-wrap: wrap; gap: 16px; }
+    .days-grid { grid-template-columns: 1fr; }
+    .guides-grid { grid-template-columns: 1fr; }
+    .lodges-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .exp-grid { grid-template-columns: 1fr; }
+    .part-banner-content { padding: 28px; }
+    .part-title { font-size: 26px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+    .contact-cards { flex-direction: column; align-items: center; }
+  }
+
+  @media (max-width: 768px) {
+    #navbar, #navbar.scrolled { padding: 14px 20px; }
+    .nav-logo-main { font-size: 15px; letter-spacing: 2px; }
+    .nav-logo-sub { font-size: 7px; letter-spacing: 3px; }
+    .nav-cta { font-size: 9px; padding: 8px 16px; letter-spacing: 1.5px; }
+    #home { padding-bottom: 60px; min-height: 100svh; }
+    .hero-inner { padding: 0 24px; }
+    .hero-eyebrow { font-size: 8px; letter-spacing: 3px; margin-bottom: 20px; }
+    .hero-eyebrow::before { width: 24px; }
+    .hero-title { font-size: clamp(38px, 11vw, 56px) !important; margin-bottom: 12px; }
+    .hero-subtitle { font-size: 16px; margin-bottom: 0; }
+    .hero-inner { flex-direction: column; align-items: flex-start; gap: 32px; }
+    .hero-right { width: 100%; }
+    .hero-stats { flex-direction: row; flex-wrap: wrap; border: none; }
+    .hero-stat {
+      flex: 1; min-width: 80px;
+      border: 1px solid rgba(255,255,255,0.15);
+      flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; padding: 14px 10px; gap: 6px;
+    }
+    .hero-stat:hover { background: rgba(0,0,0,0.18); }
+    .hero-stat-value { font-size: 20px; }
+    .hero-stat-label { font-size: 7px; letter-spacing: 1.5px; text-align: center; }
+    .hero-cta-row { flex-direction: column; gap: 12px; }
+    .btn-primary, .btn-outline {
+      text-align: center; width: 100%; padding: 16px 24px;
+      font-size: 10px; box-sizing: border-box;
+    }
+    .scroll-hint { right: 20px; bottom: 20px; }
+    .section-wrap { padding: 0 24px; }
+    .section-title { font-size: clamp(28px, 8vw, 40px); }
+    .section-intro { font-size: 16px; margin-bottom: 48px; }
+    .part-banner { height: 160px; }
+    .part-banner-content { padding: 24px; }
+    .part-title { font-size: 22px; }
+    .part-dates { font-size: 9px; }
+    #itinerary { padding: 80px 0; }
+    .days-grid { padding: 0 !important; width: 100%; box-sizing: border-box; }
+    div[style*="padding: 0 60px"] { padding: 0 16px !important; box-sizing: border-box !important; width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; }
+    .guide-card { padding: 36px 28px; }
+    .guide-avatar { width: calc(100% + 56px); margin: -36px -28px 24px -28px; height: 220px; }
+    .exp-card { padding: 36px 28px; }
+    #lodges { padding: 80px 0; }
+    .lodge-card { padding: 28px 24px; }
+    #pricing { padding: 80px 0; }
+    .pricing-tbd, .incl-card, .agent-card { padding: 28px 24px; }
+    #contact { padding: 100px 0 80px; }
+    .contact-headline { font-size: clamp(30px, 9vw, 48px); }
+    .contact-card { min-width: 180px; padding: 28px 32px; }
+    .contact-card-value { font-size: 13px; }
+    footer { padding: 32px 24px; gap: 10px; }
+    .footer-logo { font-size: 13px; }
+    .footer-copy { font-size: 9px; text-align: center; }
+    .footer-tagline { font-size: 11px; }
+    .day-card { padding: 28px 24px; }
+  }
+</style>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="icon" href="favicon.ico">
+  <link rel="manifest" href="site.webmanifest">
+</head>
+<body>
+
+<!-- ── NAVBAR ─────────────────────────────────────────────────────────────── -->
+<nav id="navbar">
+  <a class="nav-logo" href="#home">
+    <span class="nav-logo-main">Kabani Safaris</span>
+    <span class="nav-logo-sub">Tailored African Journeys</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#itinerary">Itinerary</a></li>
+    <li><a href="#lodges">Accommodation</a></li>
+    <li><a href="#experiences">Experiences</a></li>
+    <li><a href="#guides">Guide</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Enquire</a>
+</nav>
+
+<!-- ── HOME ───────────────────────────────────────────────────────────────── -->
+<section id="home">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Private Travel Proposal</div>
+      <h1 class="hero-title">
+        Safari in<br>
+        <em>Uganda</em>
+      </h1>
+      <p class="hero-subtitle">
+        A private 8-day journey to encounter mountain gorillas, chimpanzees and Uganda's great wildlife
+      </p>
+      <div class="hero-cta-row">
+        <a class="btn-primary" href="#itinerary">View Itinerary</a>
+        <a class="btn-outline" href="#pricing">See Pricing</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-value">2</span>
+          <span class="hero-stat-label">Guests</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">8</span>
+          <span class="hero-stat-label">Days</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">7</span>
+          <span class="hero-stat-label">Nights</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">Aug 2026</span>
+          <span class="hero-stat-label">22 – 29 Aug</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">Explore</div>
+</section>
+
+<!-- ── ITINERARY ──────────────────────────────────────────────────────────── -->
+<section id="itinerary">
+
+  <div class="section-wrap" style="margin-bottom: 64px;">
+    <div class="section-label fade-up">Day By Day</div>
+    <h2 class="section-title fade-up">Your Itinerary</h2>
+    <p class="section-intro fade-up" style="margin-bottom: 0;">
+      Eight days across four of Uganda's most iconic parks — from the forests of Kibale to the plains of Queen Elizabeth, the mist of Bwindi and the savannah of Lake Mburo. A private, guided safari for two.
+    </p>
+  </div>
+
+  <!-- PART ONE: KIBALE -->
+  <div class="part-banner">
+    <div class="part-banner-bg kibale"></div>
+    <div class="part-banner-content">
+      <div class="part-number">Part One</div>
+      <div class="part-title">Kibale Forest — Chimpanzee Kingdom</div>
+      <div class="part-dates">Day 1 &nbsp;·&nbsp; 22 August 2026</div>
+    </div>
+  </div>
+
+  <div style="padding: 0 60px; max-width:1320px; margin:0 auto;">
+    <div class="days-grid">
+
+      <!-- DAY 1 -->
+      <div class="day-card fade-up">
+        <div class="day-card-header">
+          <div class="day-num-wrap">
+            <span class="day-location-tag">Entebbe → Kibale</span>
+            <span class="day-num">Day 01</span>
+          </div>
+          <div class="day-date-badge">22 August 2026</div>
+        </div>
+        <h3 class="day-title">Arrival &amp; Drive to Kibale Forest</h3>
+        <p class="day-desc">
+          Depending on arrival time, a short stay in a lodge near Entebbe or straight on to Kibale National Park, nicknamed the world's primate capital — home to 13 primate species, including chimpanzees, black-and-white colobus and grey-cheeked mangabeys. In the late afternoon, a walk through Bigodi Wetland, a community-run sanctuary home to more than 200 bird species and lush forest vegetation.
+        </p>
+        <div class="day-footer">
+          <div class="day-stay">
+            <strong>Stay</strong>
+            Isunga Lodge
+          </div>
+          <span class="day-meals">B / D</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PART TWO: QUEEN ELIZABETH -->
+  <div class="part-banner">
+    <div class="part-banner-bg queenelizabeth"></div>
+    <div class="part-banner-content">
+      <div class="part-number">Part Two</div>
+      <div class="part-title">Queen Elizabeth National Park</div>
+      <div class="part-dates">Days 2 – 5 &nbsp;·&nbsp; 23 – 26 August 2026</div>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <p class="section-intro fade-up">
+      Four days at the foot of the Rwenzori Mountains — chimpanzee trekking, savannah game drives, a Kazinga Channel cruise and the rare tree-climbing lions of Ishasha.
+    </p>
+  </div>
+
+  <div style="padding: 0 60px; max-width:1320px; margin:0 auto;">
+    <div class="days-grid">
+
+      <!-- DAY 2 -->
+      <div class="day-card fade-up">
+        <div class="day-card-header">
+          <div class="day-num-wrap">
+            <span class="day-location-tag">Kibale → Queen Elizabeth</span>
+            <span class="day-num">Day 02</span>
+          </div>
+          <div class="day-date-badge">23 August 2026</div>
+        </div>
+        <h3 class="day-title">Chimpanzee Trekking &amp; Safari to Queen Elizabeth</h3>
+        <p class="day-desc">
+          Early morning departure in search of wild chimpanzees — following their calls, play and social intelligence is a moving experience. UWA (Uganda Wildlife Authority) rangers guide you deep into the forest. After lunch, drive to Queen Elizabeth National Park, at the foot of the Rwenzori Mountains. In the evening, a first game drive across the savannah in search of elephants, buffalo, antelope — and perhaps the first lions.
+        </p>
+        <span class="activity-tag">Chimpanzee Trekking — Morning</span>
+        <div class="day-footer">
+          <div class="day-stay">
+            <strong>Stay</strong>
+            The Bush Lodge
+          </div>
+          <span class="day-meals">B / L / D</span>
+        </div>
+      </div>
+
+      <!-- DAY 3 -->
+      <div class="day-card fade-up fade-up-delay-1">
+        <div class="day-card-header">
+          <div class="day-num-wrap">
+            <span class="day-location-tag">Queen Elizabeth</span>
+            <span class="day-num">Day 03</span>
+          </div>
+          <div class="day-date-badge">24 August 2026</div>
+        </div>
+        <h3 class="day-title">A Full Day in Queen Elizabeth National Park</h3>
+        <p class="day-desc">
+          An unhurried extra day to soak in the park at its own pace — morning and afternoon game drives across the Mweya Peninsula and the Channel Track, where elephants, buffalo and the park's resident lion prides gather along the water's edge. A relaxed lunch back at the lodge between drives, with time to simply watch the savannah unfold.
+        </p>
+        <span class="activity-tag">Full Day Game Drive — Mweya &amp; Channel Track</span>
+        <div class="day-footer">
+          <div class="day-stay">
+            <strong>Stay</strong>
+            The Bush Lodge
+          </div>
+          <span class="day-meals">B / L / D</span>
+        </div>
+      </div>
+
+      <!-- DAY 4 -->
+      <div class="day-card fade-up fade-up-delay-2">
+        <div class="day-card-header">
+          <div class="day-num-wrap">
+            <span class="day-location-tag">Queen Elizabeth</span>
+            <span class="day-num">Day 04</span>
+          </div>
+          <div class="day-date-badge">25 August 2026</div>
+        </div>
+        <h3 class="day-title">Kasenyi Plains Safari &amp; Kazinga Channel Cruise</h3>
+        <p class="day-desc">
+          Sunrise game drive across the Kasenyi Plains, one of the park's best spots to watch lions on the hunt — the park counts more than 95 mammal species and 600 bird species. In the afternoon, a cruise along the Kazinga Channel, the waterway linking Lake Edward and Lake George: an extraordinary concentration of hippos and Nile crocodiles, surrounded by a multitude of waterbirds.
+        </p>
+        <span class="activity-tag">Kazinga Channel — Boat Cruise</span>
+        <div class="day-footer">
+          <div class="day-stay">
+            <strong>Stay</strong>
+            The Bush Lodge
+          </div>
+          <span class="day-meals">B / L / D</span>
+        </div>
+      </div>
+
+      <!-- DAY 5 -->
+      <div class="day-card fade-up fade-up-delay-3" style="border-bottom-color: var(--tan);">
+        <div class="day-card-header">
+          <div class="day-num-wrap">
+            <span class="day-location-tag">Ishasha → Bwindi</span>
+            <span class="day-num">Day 05</span>
+          </div>
+          <div class="day-date-badge">26 August 2026</div>
+        </div>
+        <h3 class="day-title">The Tree-Climbing Lions of Ishasha &amp; Transfer to Bwindi</h3>
+        <p class="day-desc">
+          Departure for the park's southern sector, Ishasha, famous for its tree-climbing lions — a rarity in Africa. These big cats rest in the branches of wild fig trees, a sight found almost nowhere else on the continent. In the afternoon, a scenic drive to Bwindi Impenetrable Forest National Park, a UNESCO World Heritage Site home to nearly half of the world's remaining mountain gorillas.
+        </p>
+        <span class="activity-tag">Tree-Climbing Lions — Ishasha</span>
+        <div class="day-footer">
+          <div class="day-stay">
+            <strong>Stay</strong>
+            Ride 4 a Woman (Noel's Cottage)
+          </div>
+          <span class="day-meals">B / L / D</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PART THREE: BWINDI -->
+  <div class="part-banner">
+    <div class="part-banner-bg bwindi"></div>
+    <div class="part-banner-content">
+      <div class="part-number">Part Three</div>
+      <div class="part-title">Bwindi — Mountain Gorillas</div>
+      <div class="part-dates">Day 6 &nbsp;·&nbsp; 27 August 2026</div>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <p class="section-intro fade-up">
+      The journey's crowning moment: one hour face to face with a family of mountain gorillas, deep within one of Africa's most ancient forests.
+    </p>
+  </div>
+
+  <div style="padding: 0 60px; max-width:1320px; margin:0 auto;">
+    <div class="days-grid">
+
+      <!-- DAY 5 -->
+      <div class="day-card fade-up" style="border-bottom-color: var(--green);">
+        <div class="day-card-header">
+          <div class="day-num-wrap">
+            <span class="day-location-tag" style="color: var(--green);">Bwindi Impenetrable Forest</span>
+            <span class="day-num">Day 06</span>
+          </div>
+          <div class="day-date-badge">27 August 2026</div>
+        </div>
+        <h3 class="day-title">Mountain Gorilla Trekking</h3>
+        <p class="day-desc">
+          Early morning briefing with the rangers before setting off for the ultimate experience: an encounter with a family of mountain gorillas. A walk through mist, vines and birdsong leads to the gorillas — their deep gaze, calm presence and interactions leave an unforgettable, almost spiritual impression. Return to the lodge for a relaxed afternoon.
+        </p>
+        <span class="activity-tag">Gorilla Permit — 1 Hour With the Family</span>
+        <div class="day-footer">
+          <div class="day-stay">
+            <strong>Stay</strong>
+            Ride 4 a Woman (Noel's Cottage)
+          </div>
+          <span class="day-meals">B / L / D</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PART FOUR: LAKE MBURO -->
+  <div class="part-banner">
+    <div class="part-banner-bg mburo"></div>
+    <div class="part-banner-content">
+      <div class="part-number">Part Four</div>
+      <div class="part-title">Lake Mburo National Park</div>
+      <div class="part-dates">Days 7 – 8 &nbsp;·&nbsp; 28 – 29 August 2026</div>
+    </div>
+  </div>
+
+  <div class="section-wrap">
+    <p class="section-intro fade-up">
+      The final chapter of the journey — the savannah of Lake Mburo, a night game drive, a guided walk and one last rendezvous with the legendary shoebill stork before the flight home.
+    </p>
+  </div>
+
+  <div style="padding: 0 60px; max-width:1320px; margin:0 auto;">
+    <div class="days-grid">
+
+      <!-- DAY 6 -->
+      <div class="day-card fade-up">
+        <div class="day-card-header">
+          <div class="day-num-wrap">
+            <span class="day-location-tag">Bwindi → Lake Mburo</span>
+            <span class="day-num">Day 07</span>
+          </div>
+          <div class="day-date-badge">28 August 2026</div>
+        </div>
+        <h3 class="day-title">Transfer &amp; Night Game Drive at Lake Mburo</h3>
+        <p class="day-desc">
+          An early breakfast, then transfer to Lake Mburo National Park, known for its zebras, impala and eland. In the evening, a night game drive in search of leopards, genets and other nocturnal species — a rare experience among Uganda's parks.
+        </p>
+        <div class="day-footer">
+          <div class="day-stay">
+            <strong>Stay</strong>
+            Hyena Hill Lodge
+          </div>
+          <span class="day-meals">B / L / D</span>
+        </div>
+      </div>
+
+      <!-- DAY 7 -->
+      <div class="day-card fade-up fade-up-delay-1">
+        <div class="day-card-header">
+          <div class="day-num-wrap">
+            <span class="day-location-tag">Lake Mburo → Entebbe</span>
+            <span class="day-num">Day 08</span>
+          </div>
+          <div class="day-date-badge">Departure · 29 August 2026</div>
+        </div>
+        <h3 class="day-title">Savannah Walk, Shoebill Stork &amp; Departure</h3>
+        <p class="day-desc">
+          An early-morning walking safari with a ranger, discovering wildlife at the pace of the bush, following tracks and sounds. Continuation to Entebbe with a stop at the Equator Line for photos. Before the flight, a visit to Mabamba Swamp, home to the legendary shoebill stork — a rare, prehistoric-looking bird and symbol of the delta. Transfer to Entebbe International Airport for the 00:40 international departure.
+        </p>
+        <span class="activity-tag">Shoebill Stork — Mabamba Swamp</span>
+        <div class="day-footer">
+          <div class="day-stay">
+            <strong>Stay</strong>
+            Departure
+          </div>
+          <span class="day-meals">B / L</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section><!-- /itinerary -->
+
+<!-- ── LODGES ─────────────────────────────────────────────────────────────── -->
+<section id="lodges">
+  <div class="section-wrap">
+    <div class="section-label fade-up">Your Accommodation</div>
+    <h2 class="section-title fade-up">Four Addresses,<br>Four Atmospheres</h2>
+    <p class="section-intro fade-up" style="color: #5A4A3A;">
+      Each stage of the journey has been confirmed with a lodge selected for its location, comfort and authenticity — from the forest edge to the shores of Lake Mburo.
+    </p>
+    <div class="lodges-grid">
+
+      <div class="lodge-card fade-up">
+        <div class="lodge-region">Kibale · Day 1</div>
+        <h3 class="lodge-name">Isunga Lodge</h3>
+        <p class="lodge-desc">Tucked at the edge of the forest, surrounded by tea plantations and birdsong.</p>
+      </div>
+
+      <div class="lodge-card fade-up fade-up-delay-1">
+        <div class="lodge-region">Queen Elizabeth · Days 2 – 4</div>
+        <h3 class="lodge-name">The Bush Lodge</h3>
+        <p class="lodge-desc">Comfort, nature and an authentic atmosphere on the edge of the park.</p>
+      </div>
+
+      <div class="lodge-card fade-up fade-up-delay-2">
+        <div class="lodge-region">Bwindi · Days 5 – 6</div>
+        <h3 class="lodge-name">Ride 4 a Woman <span style="font-weight:400; color:#999; font-size:16px;">(Noel's Cottage)</span></h3>
+        <p class="lodge-desc">An eco-lodge run by a women's community engaged in local development.</p>
+      </div>
+
+      <div class="lodge-card fade-up fade-up-delay-3">
+        <div class="lodge-region">Lake Mburo · Day 7</div>
+        <h3 class="lodge-name">Hyena Hill Lodge</h3>
+        <p class="lodge-desc">Panoramic views over the park, with a warm, distinctly African atmosphere.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCES ─────────────────────────────────────────────────────────── -->
+<section id="experiences">
+  <div class="section-wrap">
+    <div class="section-label fade-up">The Best of Uganda</div>
+    <h2 class="section-title fade-up">Signature Experiences</h2>
+    <p class="section-intro fade-up">
+      Beyond the game drives, six extraordinary moments run through this journey — each chosen for its rarity and intensity, fitting for a country known as the "Pearl of Africa".
+    </p>
+    <div class="exp-grid">
+
+      <div class="exp-card fade-up">
+        <h3 class="exp-title">Chimpanzee Trekking</h3>
+        <p class="exp-desc exp-subtitle">Kibale Forest</p>
+        <p class="exp-desc">
+          A ranger-guided walk deep into the "world's primate capital", encountering our closest genetic cousins in their natural habitat.
+        </p>
+      </div>
+
+      <div class="exp-card green fade-up fade-up-delay-1">
+        <h3 class="exp-title">Kazinga Channel Cruise</h3>
+        <p class="exp-desc exp-subtitle">Queen Elizabeth</p>
+        <p class="exp-desc">
+          A cruise between Lake Edward and Lake George, face to face with an extraordinary concentration of hippos, Nile crocodiles and waterbirds.
+        </p>
+      </div>
+
+      <div class="exp-card fade-up fade-up-delay-2">
+        <h3 class="exp-title">Tree-Climbing Lions of Ishasha</h3>
+        <p class="exp-desc exp-subtitle">Southern Queen Elizabeth</p>
+        <p class="exp-desc">
+          A rarity found almost nowhere else in Africa: lions resting in the branches of wild fig trees.
+        </p>
+      </div>
+
+      <div class="exp-card green fade-up">
+        <h3 class="exp-title">Mountain Gorilla Trekking</h3>
+        <p class="exp-desc exp-subtitle">Bwindi Impenetrable Forest</p>
+        <p class="exp-desc">
+          One hour face to face with a family of mountain gorillas, at the end of a walk through mist and vines in a UNESCO-listed forest — the pinnacle of the journey.
+        </p>
+      </div>
+
+      <div class="exp-card fade-up fade-up-delay-1">
+        <h3 class="exp-title">Night Game Drive</h3>
+        <p class="exp-desc exp-subtitle">Lake Mburo National Park</p>
+        <p class="exp-desc">
+          As night falls, search for leopards, genets and other nocturnal species rarely seen by day — an experience found in only a few Ugandan parks.
+        </p>
+      </div>
+
+      <div class="exp-card green fade-up fade-up-delay-2">
+        <h3 class="exp-title">Mabamba Swamp</h3>
+        <p class="exp-desc exp-subtitle">Shoebill Stork</p>
+        <p class="exp-desc">
+          A canoe excursion in search of the shoebill stork, a rare, prehistoric-looking bird and symbol of the delta, before the flight home from Entebbe.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── GUIDE ──────────────────────────────────────────────────────────────── -->
+<section id="guides">
+  <div class="section-wrap">
+    <div class="section-label fade-up">Your Team on the Ground</div>
+    <h2 class="section-title fade-up">A Fully<br>Private Safari</h2>
+    <p class="section-intro fade-up" style="color: #5A4A3A;">
+      For this journey for two, a private guide and a dedicated vehicle accompany you from the first day to the last — no group, no sharing, a pace entirely your own.
+    </p>
+    <div class="guides-grid">
+
+      <div class="guide-card fade-up">
+        <div class="guide-avatar"><img src="keneth-portrait.jpg" alt="Private Guide"></div>
+        <div class="guide-region">Uganda · Private Guide</div>
+        <div class="guide-days">Days 1 – 8</div>
+        <h3 class="guide-name">Private Guide</h3>
+        <p class="guide-bio">
+          Your private guide is a Ugandan-based safari specialist who accompanies you throughout the eight days, from chimpanzee trekking in Kibale to the encounter with mountain gorillas in Bwindi. Deep knowledge of the terrain, the local rangers and surrounding communities ensures a smooth, respectful and authentic experience.
+        </p>
+        <div class="guide-languages">
+          <span class="lang-chip">English</span>
+          <span class="lang-chip">French</span>
+          <span class="lang-chip">Luganda</span>
+          <span class="lang-chip">Kinyarwanda</span>
+        </div>
+      </div>
+
+      <div class="guide-card fade-up fade-up-delay-2">
+        <div class="guide-region">Comfort &amp; Privacy · 2 Guests</div>
+        <div class="guide-days">Dedicated Vehicle · Days 1 – 8</div>
+        <h3 class="guide-name">Private 4×4 Vehicle</h3>
+        <p class="guide-bio">
+          You travel in a private 4×4 vehicle with pop-up roof, dedicated solely to your journey for all eight days. No sharing with other travellers: the pace, photo stops and time spent watching wildlife are entirely shaped around you, from Kibale to Lake Mburo.
+        </p>
+        <div class="guide-languages">
+          <span class="lang-chip">Pop-Up Roof 4×4</span>
+          <span class="lang-chip">Private Use</span>
+          <span class="lang-chip">Dedicated Driver-Guide</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING ─────────────────────────────────────────────────────────────── -->
+<section id="pricing">
+  <div class="section-wrap">
+    <div class="section-label fade-up">Your Investment</div>
+    <h2 class="section-title fade-up">Pricing &amp; Inclusions</h2>
+    <p class="section-intro fade-up">
+      Your private 8-day safari for two is priced at €8,500, all-inclusive as detailed below.
+    </p>
+
+    <div class="pricing-grid">
+
+      <div style="display: flex; flex-direction: column; gap: 32px;">
+
+        <div class="pricing-tbd fade-up">
+          <div style="font-family:'Playfair Display', serif; font-size: 48px; font-weight: 600; color: var(--dark); margin-bottom: 8px;">€8,500</div>
+          <div class="pricing-tbd-title" style="margin-bottom: 20px;">Total Price — Private Safari for 2</div>
+          <p class="pricing-tbd-text">
+            <strong>Cancellation &amp; Refund Policy.</strong> A booking is considered confirmed upon receipt of at least 50% (or the full amount) into our bank accounts or offices. The remaining balance must always be paid 14 days before the start of the safari.
+          </p>
+          <span class="pricing-tbd-tag">8 Days · 7 Nights · 2 Guests</span>
+        </div>
+
+        <div class="agent-card fade-up">
+          <div class="agent-card-title">What Your Travel Agent Offers</div>
+          <ul class="agent-list">
+            <li>Local expertise and on-the-ground follow-up in Uganda</li>
+            <li>Direct coordination with local operators</li>
+            <li>Full end-to-end trip organisation</li>
+            <li>Support coordinating international flights</li>
+            <li>7/7 availability until you're back home</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="incl-wrap fade-up fade-up-delay-2">
+
+        <div class="incl-card included">
+          <div class="incl-card-title">Included</div>
+          <ul class="incl-list">
+            <li>All listed accommodation (Isunga, Bush Lodge, Ride 4 a Woman, Hyena Hill)</li>
+            <li>All meals included</li>
+            <li>All ground transport in a private 4×4 safari vehicle</li>
+            <li>Border transfers</li>
+            <li>Private driver-guide</li>
+            <li>Gorilla and chimpanzee trekking permits — 1 per person</li>
+            <li>All national park and activity entrance fees</li>
+            <li>Drinking water in the vehicle throughout the safari</li>
+          </ul>
+        </div>
+
+        <div class="incl-card not-included">
+          <div class="incl-card-title">Not Included</div>
+          <ul class="incl-list">
+            <li>International flights</li>
+            <li>Uganda entry visa / permit</li>
+            <li>Personal travel insurance</li>
+            <li>Tips, drinks and souvenirs</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ─────────────────────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="section-wrap contact-inner">
+    <div class="contact-eyebrow">Kabani Safaris · Tailored African Journeys</div>
+    <h2 class="contact-headline">Asante Sana,</h2>
+    <p class="contact-sub">we look forward to crafting your safari</p>
+    <div class="contact-cards">
+      <a class="contact-card" href="https://wa.me/254792756650">
+        <span class="contact-card-icon">💬</span>
+        <span class="contact-card-type">WhatsApp</span>
+        <span class="contact-card-value">+254 79 275 66 50</span>
+      </a>
+      <a class="contact-card" href="mailto:reservations@kabanisafaris.com">
+        <span class="contact-card-icon">✉</span>
+        <span class="contact-card-type">Email</span>
+        <span class="contact-card-value">reservations@kabanisafaris.com</span>
+      </a>
+    </div>
+    <p class="contact-validity">
+      This proposal is valid for 14 days from issue. Subject to availability at the time of confirmation.<br>
+      Itinerary, content and accommodation are subject to lodge availability and to securing trekking permits (gorillas and chimpanzees), which should be booked as early as possible.
+    </p>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────────── -->
+<footer>
+  <span class="footer-logo">Kabani Safaris</span>
+  <span class="footer-tagline">Tailored African Journeys</span>
+  <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px; text-align:right;">
+    <span class="footer-copy">© 2026 Kabani Safaris. All rights reserved.</span>
+    <span class="footer-copy" style="color:rgba(255,255,255,0.15); font-size:9px;">Photography courtesy of Rafael Barakat.</span>
+  </div>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'rgba(255,255,255,1)'
+        : 'rgba(255,255,255,0.82)';
+    });
+  });
+</script>
+
+</body>
+</html>

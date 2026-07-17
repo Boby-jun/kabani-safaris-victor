@@ -78,6 +78,20 @@
     text-decoration: none; transition: all 0.3s;
   }
   .nav-cta:hover { background: var(--tan); border-color: var(--tan); }
+  .nav-cta-mobile { display: none; }
+  .nav-toggle {
+    display: none;
+    flex-direction: column; justify-content: center; align-items: flex-end; gap: 6px;
+    width: 32px; height: 28px; background: transparent; border: none; cursor: pointer;
+    padding: 0; z-index: 1100; position: relative;
+  }
+  .nav-toggle span {
+    display: block; width: 100%; height: 2px; background: var(--white);
+    transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); width: 100%; }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); width: 100%; }
 
   /* ── HERO ────────────────────────────────────────────────────────────── */
   #home {
@@ -625,7 +639,29 @@
   /* ── RESPONSIVE ──────────────────────────────────────────────────────── */
   @media (max-width: 900px) {
     #navbar, #navbar.scrolled { padding: 18px 28px; }
-    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .nav-toggle { display: flex; }
+    .nav-links {
+      display: flex; flex-direction: column; gap: 0;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(20, 33, 43, 0.98); backdrop-filter: blur(14px);
+      padding: 120px 40px 40px; margin: 0;
+      transform: translateY(-8px); opacity: 0; visibility: hidden;
+      transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+      z-index: 1050; overflow-y: auto;
+    }
+    .nav-links.open { opacity: 1; transform: translateY(0); visibility: visible; }
+    .nav-links li { border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .nav-links a {
+      display: block; padding: 20px 0;
+      font-size: 15px; letter-spacing: 3px;
+    }
+    .nav-links a::after { display: none; }
+    .nav-cta-mobile {
+      display: block; text-align: center; margin-top: 28px;
+      color: var(--white); border: 1px solid var(--tan-light);
+      padding: 16px 24px; font-weight: 600;
+    }
     .hero-inner, .section-wrap { padding: 0 28px; }
     .hero-stats { flex-wrap: wrap; gap: 16px; }
     .days-grid { grid-template-columns: 1fr; }
@@ -644,7 +680,12 @@
     .nav-logo-main { font-size: 15px; letter-spacing: 2px; }
     .nav-logo-sub { font-size: 7px; letter-spacing: 3px; }
     .nav-cta { font-size: 9px; padding: 8px 16px; letter-spacing: 1.5px; }
-    #home { padding-bottom: 60px; min-height: 100svh; }
+    #home {
+      padding-bottom: 60px; min-height: 100svh;
+      background:
+        linear-gradient(to bottom, rgba(10,20,10,0.50) 0%, rgba(10,15,8,0.15) 40%, rgba(6,10,5,0.85) 100%),
+        url('hero-silverback.jpg') 90% 42% / cover no-repeat;
+    }
     .hero-inner { padding: 0 24px; }
     .hero-eyebrow { font-size: 8px; letter-spacing: 3px; margin-bottom: 20px; }
     .hero-eyebrow::before { width: 24px; }
@@ -710,7 +751,7 @@
     <span class="nav-logo-main">Kabani Safaris</span>
     <span class="nav-logo-sub">Tailored African Journeys</span>
   </a>
-  <ul class="nav-links">
+  <ul class="nav-links" id="navLinks">
     <li><a href="#home">Home</a></li>
     <li><a href="#itinerary">Itinerary</a></li>
     <li><a href="#lodges">Accommodation</a></li>
@@ -718,8 +759,12 @@
     <li><a href="#guides">Guide</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact" class="nav-cta-mobile">Enquire</a></li>
   </ul>
   <a class="nav-cta" href="#contact">Enquire</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- ── HOME ───────────────────────────────────────────────────────────────── -->
@@ -1290,6 +1335,23 @@
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  const navToggle = document.getElementById('navToggle');
+  const navLinksMenu = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navToggle.classList.toggle('open');
+    navLinksMenu.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  navLinksMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navToggle.classList.remove('open');
+      navLinksMenu.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', false);
+      document.body.style.overflow = '';
+    });
   });
 
   const observer = new IntersectionObserver((entries) => {
